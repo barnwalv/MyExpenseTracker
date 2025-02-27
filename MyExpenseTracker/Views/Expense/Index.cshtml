@@ -1,0 +1,50 @@
+﻿@using MyExpenseTracker.Models;
+
+@model IEnumerable<MyExpenseTracker.Models.Expense>
+
+@{
+    ViewData["Title"] = "Expenses Manager";
+}
+
+<div class="container mt-5">
+    <div class="col end-0">
+        <a asp-action="Create" class="btn btn-outline-primary">Add New Expense</a><br />
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-7 offset-md-0">
+            <h3>Expenses</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ExpId</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Label</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if(Model != null && Model.Count() > 0)
+                    {
+                        foreach (var expense in Model)
+                        {
+                            <tr>
+                                <td>@expense.Id</td>
+                                <td>@expense.Amount</td>
+                                <td>@expense.Description</td>
+                                <td>@expense.Category</td>
+                                <td>@expense.Label</td>
+                            </tr>
+                        }
+                    }
+                    else{
+                        <tr>
+                            <td colspan="5">No expenses found for selected month and year.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
