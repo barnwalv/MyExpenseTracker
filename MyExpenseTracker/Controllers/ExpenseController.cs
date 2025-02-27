@@ -31,6 +31,8 @@ namespace MyExpenseTracker.Controllers
         [HttpPost]
         public async Task<IActionResult> FilterExpensesByMonthYear(int month, int year)
         {
+            double salary = 50000; // Example: Replace with actual salary from DB
+            ViewBag.Salary = salary;
             var expenses = await _unitOfWork.ExpenseRepository.GetExpensesByMonthYearAsync(month, year);
             return View(expenses);
         }
