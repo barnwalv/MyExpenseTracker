@@ -47,6 +47,43 @@ namespace MyExpenseTracker.Controllers
             return View();
         }
 
-        
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+            var expense = await _unitOfWork.ExpenseRepository.GetExpenseByIdAsync(id);
+            if (expense == null)
+            {
+                return NotFound();
+            }
+            return View(expense);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, [Bind("Id, Amount, Description, Category, Label, Date")] Expense expense)
+        {
+            if (id != expense.Id)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                await _unitOfWork.ExpenseRepository.UpdateExpenseAsync(expense);
+                await _unitOfWork.SaveAsync();
+                return RedirectToAction(nameof(FilterExpensesByMonthYear));
+            }
+            return View(expense);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _unitOfWork.ExpenseRepository.DeleteExpenseAsync(id);
+            await _unitOfWork.SaveAsync();
+
+            return RedirectToAction(nameof(FilterExpensesByMonthYear));
+        }
+
     }
 }

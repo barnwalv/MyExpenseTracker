@@ -1,0 +1,145 @@
+﻿@* @model MyExpenseTracker.Models.Expense
+
+@{
+    ViewBag.Title = "Edit Expense";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Edit Expense</h2>
+
+    <!-- Expense Form -->
+    <form method="post" action="@Url.Action("Edit", "Expense")" class="row g-3 needs-validation" novalidate>
+
+        <!-- Date -->
+        <div class="col-md-6">
+            <label for="Date" class="form-label">Date</label>
+            <input type="date" name="Date" id="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" required>
+            <div class="invalid-feedback">Please select a valid date.</div>
+        </div>
+
+        <!-- Category -->
+        <div class="col-md-6">
+            <label for="Category" class="form-label">Category</label>
+            <select name="Category" id="category" class="form-select" required>
+                <option value="" selected disabled>Select Category</option>
+                <option value="Food">Food</option>
+                <option value="Rent">Rent</option>
+                <option value="Travel">Travel</option>
+                <option value="Medical">Medical</option>
+                <option value="Savings">Savings</option>
+                <option value="Investments">Investments</option>
+                <option value="Other">Other</option>
+            </select>
+            <div class="invalid-feedback">Please select a category.</div>
+        </div>
+
+        <!-- Label -->
+        <div class="col-md-6">
+            <label for="Label" class="form-label">Label</label>
+            <select name="Label" id="label" class="form-select" required>
+                <option value="" selected disabled>Select Label</option>
+                <option value="Required">Required</option>
+                <option value="NotRequired">Not Required</option>
+            </select>
+            <div class="invalid-feedback">Please select a label.</div>
+        </div>
+
+        <!-- Amount -->
+        <div class="col-md-6">
+            <label for="Amount" class="form-label">Amount</label>
+            <input type="number" name="Amount" id="amount" class="form-control" placeholder="Enter amount" min="1" step="0.01" required>
+            <div class="invalid-feedback">Please enter a valid amount.</div>
+        </div>
+
+        <!-- Description -->
+        <div class="col-md-6">
+            <label for="Description" class="form-label">Description</label>
+            <input type="text" name="Description" id="description" class="form-control" placeholder="Enter a short description" required>
+            <div class="invalid-feedback">Please provide a description.</div>
+        </div>
+
+
+        <!-- Submit Button -->
+        <div class="col-12 text-center">
+            <button type="submit" value="Update" class="btn btn-primary w-45">Add Expense</button>
+            <a asp-controller="Expense" asp-action="FilterExpensesByMonthYear" class="btn btn-secondary">Check Expenses</a>
+        </div>
+    </form>
+</div>
+
+
+ *@
+
+
+@model MyExpenseTracker.Models.Expense
+
+@{
+    ViewData["Title"] = "Edit Expense";
+}
+
+<h2 class="text-center mb-4">Edit Expense</h2>
+
+<form method="post" asp-action="Edit" class="row g-3 needs-validation" novalidate>
+
+    <!-- Hidden ID -->
+    <input type="hidden" asp-for="Id" />
+
+    <!-- Date -->
+    <div class="col-md-6">
+        <label asp-for="Date" class="form-label">Date</label>
+        <input asp-for="Date" class="form-control" type="date" required>
+        <div class="invalid-feedback">Please select a valid date.</div>
+    </div>
+
+    <!-- Category -->
+    <div class="col-md-6">
+        <label asp-for="Category" class="form-label">Category</label>
+        <select asp-for="Category" class="form-select" required>
+            <option value="" disabled>Select Category</option>
+            <option value="Food">Food</option>
+            <option value="Rent">Rent</option>
+            <option value="Travel">Travel</option>
+            <option value="Medical">Medical</option>
+            <option value="Savings">Savings</option>
+            <option value="Investments">Investments</option>
+            <option value="Other">Other</option>
+        </select>
+        <div class="invalid-feedback">Please select a category.</div>
+    </div>
+
+    <!-- Label -->
+    <div class="col-md-6">
+        <label asp-for="Label" class="form-label">Label</label>
+        <select asp-for="Label" class="form-select" required>
+            <option value="" disabled>Select Label</option>
+            <option value="Required">Required</option>
+            <option value="NotRequired">Not Required</option>
+        </select>
+        <div class="invalid-feedback">Please select a label.</div>
+    </div>
+
+    <!-- Amount -->
+    <div class="col-md-6">
+        <label asp-for="Amount" class="form-label">Amount</label>
+        <input asp-for="Amount" class="form-control" type="number" min="1" step="0.01" placeholder="Enter amount" required>
+        <div class="invalid-feedback">Please enter a valid amount.</div>
+    </div>
+
+    <!-- Description -->
+    <div class="col-md-6">
+        <label asp-for="Description" class="form-label">Description</label>
+        <input asp-for="Description" class="form-control" type="text" placeholder="Enter a short description" required>
+        <div class="invalid-feedback">Please provide a description.</div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="col-12 text-center">
+        <button type="submit" class="btn btn-primary w-45">Save Changes</button>
+        <a asp-controller="Expense" asp-action="FilterExpensesByMonthYear" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
